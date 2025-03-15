@@ -1,8 +1,10 @@
 [package]
-name = "wasm-game-of-life"
+name = "chibi-world"
 version = "0.1.0"
-authors = ["Your Name Here <you@example.com>"]
-edition = "2018"
+authors = ["Alexander Ortiz <alexanderortiz@xxxxxx.com>"]
+edition = "2024"
+description = "Mini game project"
+repository = "https://github.com/alexortiz201/chibi-world"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
