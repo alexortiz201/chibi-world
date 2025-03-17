@@ -1,3 +1,5 @@
-import * as wasm from "wasm-game-of-life";
+import init from "wasm-game-of-life/chibi_world.js";
 
-wasm.greet();
+await init()
+
+export default wasm
