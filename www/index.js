@@ -1,5 +1,8 @@
-import init from "wasm-game-of-life/chibi_world.js";
+console.log("Initializing WASM...");
+import init from "../pkg/chibi_world.js";
 
-await init()
-
-export default wasm
+init().then(() => {
+    console.log("WASM Loaded Successfully! 🎉");
+}).catch(err => {
+    console.error("Failed to load WASM:", err);
+});

@@ -11,7 +11,7 @@ import topLevelAwait from "vite-plugin-top-level-await";
 export default defineConfig({
     root: '.',
     build: {
-        outDir: 'dist',
+        outDir: '../dist',
         rollupOptions: {
             input: {
                 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import.meta
@@ -21,7 +21,10 @@ export default defineConfig({
         }
     },
     server: {
-        open: 'index.html'
+        open: 'index.html',
+        fs: {
+            allow: ['.', '../pkg']
+        }
     },
     plugins: [
         wasm(),

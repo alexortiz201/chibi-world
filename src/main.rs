@@ -1,4 +1,9 @@
-#![warn(clippy::pedantic)]
+#[cfg(target_arch = "wasm32")]
+use console_error_panic_hook::set_once as set_panic_hook;
+#[cfg(target_arch = "wasm32")]
+use web_sys::console;
+
+#[cfg_attr(not(target_arch = "wasm32"), warn(clippy::pedantic))]
 // This is the canonical "Hello World" example for RLTK.
 // It is crammed into one file, and kept as short as possible
 //////////////////////////////////////////////////////////////
@@ -83,6 +88,9 @@ impl GameState for State {
 
 // Every program needs a main() function!
 fn main() -> RltkError {
+    #[cfg(target_arch = "wasm32")]
+    set_panic_hook();
+
     // RLTK's ConsoleBuilder interface offers a number of helpers to get you up and running quickly.
     // Here, we are using the `simple80x50()` helper, which builds an 80-wide by 50-tall console,
     // with the baked-in 8x8 terminal font.
@@ -99,5 +107,10 @@ fn main() -> RltkError {
 
     // Call into RLTK to run the main loop. This handles rendering, and calls back into State's tick
     // function every cycle. The box is needed to work around lifetime handling.
-    rltk::main_loop(context, gs)
+    if let Err(e) = rltk::main_loop(context, gs) { // ✅ No unwrap()
+        #[cfg(target_arch = "wasm32")]
+        console::error_1(&format!("WASM Game Loop Error: {:?}", e).into());
+    }
+
+    Ok(())
 }
