@@ -107,7 +107,7 @@ fn main() -> RltkError {
 
     // Call into RLTK to run the main loop. This handles rendering, and calls back into State's tick
     // function every cycle. The box is needed to work around lifetime handling.
-    if let Err(e) = rltk::main_loop(context, gs) { // ✅ No unwrap()
+    if let Err(_e) = rltk::main_loop(context, gs) { // ✅ No unwrap()
         #[cfg(target_arch = "wasm32")]
         console::error_1(&format!("WASM Game Loop Error: {:?}", e).into());
     }
